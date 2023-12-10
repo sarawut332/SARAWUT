@@ -1,0 +1,299 @@
+<html><head>
+  <title>W3.CSS Template</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    
+      body {
+        background: linear-gradient(#1239e8 ,#f0f0f0) ;
+      }
+      .container {
+        width: 50%;
+        background-color: #f0f0f0;
+        padding: 20px;
+        justify-content: center;
+        border-radius: 8px;
+      height: 250vh; /* ทำให้ body มีความสูงเท่ากับ viewport height */
+      margin: 0 auto; /* ลบ margin ที่ถูกกำหนดมาในท้ายเอกสาร */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <style type="text/css">/* Chart.js */
+  /*
+   * DOM element rendering detection
+   * https://davidwalsh.name/detect-node-insertion
+   */
+  @keyframes chartjs-render-animation {
+    from { opacity: 0.99; }
+    to { opacity: 1; }
+  }
+  
+  .chartjs-render-monitor {
+    animation: chartjs-render-animation 0.001s;
+  }
+  
+  /*
+   * DOM element resizing detection
+   * https://github.com/marcj/css-element-queries
+   */
+  .chartjs-size-monitor,
+  .chartjs-size-monitor-expand,
+  .chartjs-size-monitor-shrink {
+    position: absolute;
+    direction: ltr;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
+    z-index: -1;
+  }
+  
+  .chartjs-size-monitor-expand > div {
+    position: absolute;
+    width: 1000000px;
+    height: 1000000px;
+    left: 0;
+    top: 0;
+  }
+  
+  .chartjs-size-monitor-shrink > div {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    left: 0;
+    top: 0;
+  }
+  </style></head>
+  <body>
+  <!-- Navbar (sit on top) -->
+  <hr>
+  <div class="w3-top">
+    <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+      <a href="#home" class="w3-bar-item w3-button"><b>RMU</b> Sarawut Phanphala</a>
+      <!-- Float links to the right. Hide them on small screens -->
+      <div class="w3-right w3-hide-small">
+          <a href="index.html" class="w3-bar-item w3-button">index</a>
+          <a href="java.html" class="w3-bar-item w3-button">java</a>
+          <a href="api.html" class="w3-bar-item w3-button">api</a>
+      </div>
+    </div>
+  </div>
+  <div class="container"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+  <hr>
+  <div class="content">
+    
+    <hr>
+    <h1>LAB</h1>
+  
+    <hr>
+    <h2>สุ่มตัวเลขลูกเต๋า</h2>
+    <button onclick="rollAndDisplayDice()">ทอยลูกเต๋า</button>
+    <p id="diceResult"></p>
+  
+    <hr>
+    <h2>แปลงตัวอักษรตัวแรกของ str ให้เป็นตัวพิมพ์ใหญ่ส่วนตัวอักษรที่เหลือให้มีขนาดเหมือนเดิม</h2>
+      <p>
+          <label for="inputText">ก่อนแปลง: </label>
+          <input type="text" id="inputText">
+          <button onclick="showModifiedString()">แปลง</button>
+        </p>
+        
+        <p>หลังแปลง = <span id="modifiedString" class="output-box"></span></p>
+    <hr>
+    <input type="number" id="inputDays" placeholder="จำนวนวัน">
+    <button onclick="calculateSeconds()">คำนวณเป็นวินาที</button>
+    <p id="resultInSeconds"></p>
+    
+    
+    <hr>
+    <h2>คำนวณแต้มจากยอดซื้อขายโดยเฉพาะทุกยอดซื้อ100บาทจะได้1แต้ม</h2>
+    <button onclick="updatePoints()">คำนวณแต้ม</button>
+    <p>ยอดซื้อขาย: <span id="totalSales">1000</span> บาท</p>
+  <p>จำนวนแต้มที่ได้: <span id="loyaltyPoints">10</span> แต้ม</p>
+  
+  
+  <hr>
+  <h2>หาความยาวเส้นรอบวงของวงกลม</h2>
+  <button onclick="calculate()">คำนวณความยาว</button>
+  <p id="result"></p>
+  <hr>
+    <!-- End page content -->
+  </div>
+  
+  <!-- Footer -->
+  
+  <canvas id="myChart" style="width: 100%; max-width: 700px; display: block;" width="515" height="257" class="chartjs-render-monitor"></canvas>
+  <hr>
+  <canvas id="myChart2" style="width: 100%; max-width: 600px; display: block;" width="515" height="257" class="chartjs-render-monitor"></canvas>
+  <script>
+     function rollDice() {
+      const randomNumber = Math.floor(Math.random() * 6) + 1;
+      return randomNumber;
+    }
+  
+    function rollAndDisplayDice() {
+      const result = rollDice();
+      document.getElementById("diceResult").innerHTML = `ผลลูกเต๋า: ${result}`;
+    }
+    function daysToSeconds(days) {
+    const secondsInMinute = 60;
+    const minutesInHour = 60;
+    const hoursInDay = 24;
+  
+    const seconds = days * hoursInDay * minutesInHour * secondsInMinute;
+  
+    return seconds;
+  }
+  
+  function calculateSeconds() {
+    const days = document.getElementById("inputDays").value;
+    let text;
+  
+    if (isNaN(days) || days < 1) {
+      text = "ป้อนค่าไม่ถูกต้อง";
+    } else {
+      const seconds = daysToSeconds(days);
+      text = `จำนวนวินาทีที่เท่ากับ ${seconds} วินาที`;
+    }
+  
+    document.getElementById("resultInSeconds").innerText = text;
+  }
+  
+    function ucFirst(str) {
+      if (!str) return str;
+      const modifiedStr = str.charAt(0).toUpperCase() + str.slice(1);
+      return modifiedStr;
+    }
+  
+    function ucFirst(str) {
+      if (!str) return str;
+      const modifiedStr = str.charAt(0).toUpperCase() + str.slice(1);
+      return modifiedStr;
+    }
+    function showModifiedString() {
+      const inputText = document.getElementById("inputText").value;
+      const modifiedString = ucFirst(inputText);
+  
+      document.getElementById("modifiedString").innerText = modifiedString;
+    }
+  
+    function calculateLoyaltyPoints(totalSales) {
+      let points = totalSales / 100;
+      points = Math.floor(points);
+      return points;
+    }
+  
+    function updatePoints() {
+      const newTotalSales = prompt("กรุณากรอกยอดซื้อขายใหม่ (ในหน่วยบาท):");
+      const newPoints = calculateLoyaltyPoints(parseInt(newTotalSales));
+  
+      if (!isNaN(newPoints)) {
+        document.getElementById("totalSales").innerText = newTotalSales;
+        document.getElementById("loyaltyPoints").innerText = newPoints;
+      } else {
+        alert("โปรดกรอกตัวเลขที่ถูกต้อง");
+      }
+    }
+    const totalSales = 360;
+    const loyaltyPoints = calculateLoyaltyPoints(totalSales);
+    document.getElementById("totalSales").innerText = totalSales;
+    document.getElementById("loyaltyPoints").innerText = loyaltyPoints;
+  
+  
+    function calculateCircleLength(radius) {
+      var PI = Math.PI;
+      var circleLength = PI * 2 * radius;
+      return circleLength;
+    }
+  
+    function calculateCircleLength(radius) {
+      var PI = Math.PI;
+      var circleLength = PI * 2 * radius;
+      return circleLength;
+    }
+  
+    function calculate() {
+      var radius = prompt("กรุณาใส่ค่ารัศมีของวงกลม:");
+  
+      if (radius !== null && radius !== "") {
+        radius = parseInt(radius);
+  
+        if (!isNaN(radius)) {
+          var length = calculateCircleLength(radius);
+          document.getElementById("result").innerText = "ความยาวเส้นรอบวงของวงกลมที่มีรัศมี " + radius + " คือ " + length;
+        } else {
+          alert("โปรดกรอกรัศมีของวงกลมให้ถูกต้อง");
+        }
+      }
+    }
+
+    const catHeightData = [
+    {age: 1, siamese: 3, persian: 4},
+    {age: 2, siamese: 4, persian: 5},
+    {age: 3, siamese: 5, persian: 6},
+    // เพิ่มข้อมูลต่อไปตามต้องการ
+  ];
+  
+  new Chart("myChart", {
+    type: "scatter",
+    data: {
+      datasets: [
+        {
+          label: 'Siamese Cat Height',
+          pointRadius: 4,
+          pointBackgroundColor: "rgb(255,0,0)", // เปลี่ยนสีตามที่ต้องการ
+          data: catHeightData.map(item => ({x: item.age, y: item.siamese}))
+        },
+        {
+          label: 'Persian Cat Height',
+          pointRadius: 4,
+          pointBackgroundColor: "rgb(0,0,255)", // เปลี่ยนสีตามที่ต้องการ
+          data: catHeightData.map(item => ({x: item.age, y: item.persian}))
+        }
+      ]
+    },
+    options: {
+      scales: {
+        xAxes: [{ticks: {min: 0, max: 5}}],
+        yAxes: [{ticks: {min: 0, max: 8}}],
+      }
+    }
+  }); 
+  </script>
+  <div>
+    <canvas id="myChart2" width="845" height="422" style="display: block; box-sizing: border-box; height: 338px; width: 676px;"></canvas>
+  </div>
+  <hr>
+  <canvas id="myChart" style="width: 676px; max-width: 1000px; display: block; box-sizing: border-box; height: 338px;" width="845" height="422"></canvas>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ ้<hr>
+  <script>
+    const ctx = document.getElementById('myChart2');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['อาร์เซนอล', 'ลิเวอร์พลู', 'แมนฯซิตี้', 'แอสตัน วิลลา', 'ท็อตแนม', 'นิวคลาสเซิน'],
+        datasets: [{
+          label: '# ตารางคะแนนพรีเมียร์ลีก',
+          data: [36, 31, 30, 29, 27, 26],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+  </div>
+  </body></html>
